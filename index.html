@@ -1,521 +1,376 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Profile &mdash;PORTFOLIO</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <style>
+    html {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      transition: background-color 0.3s;
+      position: relative;
+    }
+
+    /* Add random lines in the background */
+    html::before,
+    html::after {
+      content: "";
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.2);
+      z-index: -1;
+    }
+
+    /* Vertical Line */
+    html::before {
+      width: 1px;
+      height: 100%;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    /* Horizontal Line */
+    html::after {
+      width: 100%;
+      height: 1px;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+
+    .word-container {
+      font-size: 128px;
+      font-weight: bold;
+      color: #000000;
+      cursor: default;
+      filter: blur(3px);
+      transition: ease-in-out .25s;
+    }
+
+    .word-container:hover {
+      filter: blur(0px);
+    }
+
+    .text {
+      text-transform: capitalize;
+      filter: blur(2px)!important;
+      transition: ease-in-out .25s;
+    }
+
+    .text:hover {
+      filter: blur(0px)!important;
+    }
+
+    /* Additional styling for corner texts */
+    .corner-text {
+      position: absolute;
+      font-size: 18px;
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+      background-color: transparent;
+      padding: 50px 140px;
+      transition:  ease-in-out .5s;
+      
+    }
+    @media (max-width: 992px) {
+      .corner-text {
+        padding: 50px 20px;
+        transition:  ease-in-out 2s;
+      }
+      .word-container {
+        font-size: 64px;
+      }
+    }
+
+    .top-left {
+      top: 10px;
+      left: 10px;
+    }
+
+    .top-right {
+      top: 10px;
+      right: 10px;
+    }
+
+    .bottom-left {
+      bottom: 10px;
+      left: 10px;
+    }
+
+    .bottom-right {
+      bottom: 10px;
+      right: 10px;
+    }
+
+    /* Hover styles */
+    .corner-text:hover {
+      z-index: 2;
+    }
+
+    .corner-text.top-left:hover ~ .word-container,
+    .corner-text.top-right:hover ~ .word-container,
+    .corner-text.bottom-left:hover ~ .word-container,
+    .corner-text.bottom-right:hover ~ .word-container {
+      color: white;
+      
+    }
+
+    .corner-text.top-left:hover ~ html,
+    .corner-text.top-right:hover ~ html,
+    .corner-text.bottom-left:hover ~ html,
+    .corner-text.bottom-right:hover ~ html {
+      background-color: black;
+    }
+
+    .corner-text:hover {
+      text-decoration: line-through;
+      color: #ffffff !important;
+    }
+    .corner-text a{
+      color: #04ff14!important;
+    }
+    .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader-ring {
+            border: 4px solid rgb(255, 255, 255);
+            border-top: 4px solid #00ff26;
+            border-radius: 50%;
+            width: 400px;
+            height: 400px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+        }
+
+        .loader-image {
+            width: 225px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+        }
+        .corner-text::before {  
+  transform: scaleX(0);
+  transform-origin: bottom right;
+
+}
+
+.corner-text:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+ 
+}
+
+.corner-text::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  inset: 0 0 0 0;
+  background: hsl(0, 0%, 0%);
+  z-index: -1;
+  transition: transform .3s ease;
+ 
+}
+.svg-animation {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease;
+}
+
+
+       
+  </style>
+</head>
+<body>
+  <div class="preloader">
+    <div class="loader-ring"></div>
+    <div class="loader-container">
+
+    <img class="loader-image" src="images/newwww.png" alt="Loader Image">
+  </div>
+    <div class="loading-text">Loading...</div>
+</div>
+  
+<div id="mainContent" style="display: none;"> 
+  <svg id="svgContainer" class="svg-animation" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="10" fill="#000" stroke="#000" stroke-width="2" />
+  
+  </svg>
+   
+  <div class="word-container" id="wordContainer">
+    <span class="text">H</span>
+    <span class="text">E</span>
+    <span class="text">L</span>
+    <span class="text">L</span>
+    <span class="text">O</span>
+    <span class="text">!</span>
+    <span class="text">!</span>
+  </div>
 
 
 
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="https://twitter.com/riyanshjain18?t=hsx9SEC8r7twkRwCFsvILw&s=09" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+  <!-- Add corner texts -->
+  <div class="corner-text top-left" ><a href="about.html" style="text-decoration: none;">ABOUT</a> </div>
+  <div class="corner-text top-right"><a href="project.html" style="text-decoration: none;">PROJECTS</div>
+  <div class="corner-text bottom-left">MY RESUME</div>
+  <div class="corner-text bottom-right"><a href="contact.html" style="text-decoration: none;">CONTACT</a></div>
+</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.min.js"></script>
+ 
+  <script>
 
-	<link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-	
+    
+    const wordContainer = document.getElementById('wordContainer');
+    const letters = Array.from(wordContainer.querySelectorAll('.text'));
 
-	<link rel="stylesheet" href="css/animate.css">
+    window.addEventListener('load', () => {
+            // Delay hiding the preloader for 3 seconds
+            setTimeout(() => {
+                const preloader = document.querySelector('.preloader');
+                preloader.style.display = 'none';
 
-	<link rel="stylesheet" href="css/icomoon.css">
+                // Show the main content with animation
+                const mainContent = document.getElementById('mainContent');
+                mainContent.style.display = 'block';
+                gsap.fromTo(mainContent, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.inOut' });
 
-	<link rel="stylesheet" href="css/bootstrap.css">
+                // Your existing JavaScript code
+                // ...
 
-	
-	<link rel="stylesheet" href="css/style.css">
+                // Call the shuffleLetters function after loading
+                shuffleLetters();
+            }, 3000);
+        });
+    // Function to shuffle the letters
+    function shuffleLetters() {
+      const shuffledText = "Riyansh";
+      const shuffledLetters = shuffledText.split('');
 
-	<script src="js/modernizr-2.6.2.min.js"></script>
-
-	</head>
-	<body>
-		
-		
-	<div class="fh5co-loader"></div>
-	
-	<div id="page">	
-	<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image:url(images/qq.jpg); width: 100% ; height: auto;" >
-		
-			
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t js-fullheight">
-						<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
-							
-							<h1><marquee width="100%">CLOUD ENGINEER / CODER</marquee></h1>
-							<h3><span>My name is Riyansh Jain</span></h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<div id="fh5co-about" class="animate-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>About Me</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<ul class="info">
-						<li><span class="first-block">Full Name:</span><span class="second-block">Riyansh Jain</span></li>
-						<li><span class="first-block">Email:<a href="mailto:riyujain68@gmail.com"></span><span class="second-block">riyanshj83@gmail.com</span></a></li>
-						<li><span class="first-block">Website:</span><span class="second-block">-</span></li>
-						
-					</ul>
-				</div>
-				<div class="col-md-8">
-					<h2>Hello There!</h2>
-					<p>I am a to be Cloud Engineer with primary interest in coding, app development, and software development. The majority of my work and project experience has involved coding for developing coding based projects along with various applications.
-						I have taken multiple leadership roles in teams ranging from 4 to 20 student, and have additional experience with project management, coding , app development and website development.
-						I am completing my Bachelor's degree in Computer Engineering specialization in Cloud Computing from Poornima Unversity .
-						This website provides an overview of various work experiences, projects, and related activities that I have done since the start of my Bachelor's program</p>
-					
-					<p>
-						<ul class="fh5co-social-icons">
-							<li><a href="https://twitter.com/riyanshjain18?t=hsx9SEC8r7twkRwCFsvILw&s=09"><i class="icon-twitter2"></i></a></li>
-							
-							<li><a href="https://www.linkedin.com/in/riyansh-jain-890275228"><i class="icon-linkedin2"></i></a></li>
-							
-						</ul>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="fh5co-resume" class="fh5co-bg-color">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>My Resume</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 col-md-offset-0">
-					<ul class="timeline">
-						<li class="timeline-heading text-center animate-box">
-							<div><h3>Internship</h3></div>
-						</li>
-						<li class="animate-box timeline-unverted">
-							<div class="timeline-badge"><i class="icon-suitcase"></i></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Content Writer</h3>
-									<span class="company">Hariyali - 13/06/21 - 16/09/2021</span>
-								</div>
-								<div class="timeline-body">
-									<p>A role responsible for writting clear, creative and attrative.</p>
-								</div>
-							</div>
-						</li>
-						
-						<br>
-						<li class="timeline-heading text-center animate-box">
-							<div><h3>Education</h3></div>
-						</li>
-						
-						<li class="animate-box timeline-unverted">
-							<div class="timeline-badge"><i class="icon-graduation-cap"></i></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">B.Tech Cloud </h3>
-									<span class="company">Poornima University - 2021 - 2025</span>
-								</div>
-								<div class="timeline-body">
-									<p>Currently pursuing B.Tech in Cloud Computing from Poornima University, Jaipur</p>
-								</div>
-							</div>
-						</li>
-						
-						<li class="animate-box timeline-unverted">
-							<div class="timeline-badge"><i class="icon-graduation-cap"></i></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Senion Secondary School (XII)</h3>
-									<span class="company">Vidhya Bharti Public - 2021</span>
-								</div>
-								<div class="timeline-body">
-									<p>Scored 88% in class 12.</p>
-								</div>
-							</div>
-						</li>
-						<br>
-						<li class="timeline-heading text-center animate-box">
-							<div><h3>Certificates</h3></div>
-						</li>
-						
-						<li class="animate-box timeline-unverted">
-							<div class="timeline-badge"><i class="icon-graduation-cap"></i></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Microsoft Certificate </h3>
-									<span class="company">Azure Fundamentals - 2022</span>
-								</div>
-							
-							</div>
-						</li>
-						
-						<li class="animate-box timeline-unverted">
-							<div class="timeline-badge"><i class="icon-graduation-cap"></i></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">MS Excel</h3>
-									<span class="company">E-Learnmarkets - 2021</span>
-								</div>
-								
-							</div>
-						</li>
-                        <li class="animate-box timeline-unverted">
-							<div class="timeline-badge"><i class="icon-graduation-cap"></i></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Content Writing</h3>
-									<span class="company">Hariyali - 2021</span>
-								</div>
-								
-							</div>
-						</li>
-			    	</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
-	<div id="fh5co-features" class="animate-box">
-		<div class="container">
-			<div class="services-padding">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<h2>My Services</h2>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 text-center">
-						<div class="feature-left">
-							<span class="icon">
-								<i class="icon-paintbrush"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>Web Design</h3>
-								<p>An underdog in web designing but ready to learn new things. </p>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-4 text-center">
-						<div class="feature-left">
-							<span class="icon">
-								<i class="icon-suitcase"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>Branding</h3>
-								<p>contributes in growing of teammates and my workplace.</p>
-							</div>
-						</div>
-
-					</div>
-					<div class="col-md-4 text-center">
-						<div class="feature-left">
-							<span class="icon">
-								<i class="icon-search"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>Analytics</h3>
-								<p>Analyse the problems and find its best solution.</p>
-							</div>
-						</div>
-					</div>
-				</div>
+      letters.forEach((letter, index) => {
+        gsap.to(letter, {
+          duration: 0.5,
+          delay: index * 0.1,
+          opacity: 0,
+          scale: 0,
+          // Apply text blur
+          ease: "back.out(1.7)",
+          onComplete: () => {
+            letter.textContent = shuffledLetters[index];
+            gsap.to(letter, {
+              duration: 0.5,
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0)", // Remove text blur
+            });
+          }
+        });
+      });
+    }
 
 
-				<div class="row">
-					<div class="col-md-4 text-center">
+  </script>
+  <script>
+const svganimation = document.querySelector('.svg-animation');
 
-						<div class="feature-left">
-							<span class="icon">
-								<i class="icon-eye2"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>Web Developent</h3>
-								<p>Intermediate in web development. Ready to learn.</p>
-							</div>
-						</div>
+// Add an event listener to track the cursor movement
+document.addEventListener('mousemove', (event) => {
+    const x = event.clientX;
+    const y = event.clientY;
 
-					</div>
+    // Move the SVG element to the cursor position
+    svgAnimation.style.left = `${x}px`;
+    svgAnimation.style.top = `${y}px`;
+});
 
-					<div class="col-md-4 text-center">
-						<div class="feature-left">
-							<span class="icon">
-								<i class="icon-genius"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>Coding</h3>
-								<p>Coding is like a poetry for me. Coding helps me to make extra-ordinary programms.</p>
-							</div>
-						</div>
+// Animate the SVG element on cursor hover
+svgAnimation.addEventListener('mouseenter', () => {
+    gsap.fromTo(svgAnimation, { scale: 1 }, { scale: 1.1, duration: 0.3, ease: 'power1.out' });
+});
 
-					</div>
-					<div class="col-md-4 text-center">
-						<div class="feature-left">
-							<span class="icon">
-								<i class="icon-chat"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>Support</h3>
-								<p>Supportive to my team for any kind of work.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+svgAnimation.addEventListener('mouseleave', () => {
+    gsap.to(svgAnimation, { scale: 1, duration: 0.3, ease: 'power1.out' });
+});
+  </script>
+  <script>
+    // Find the SVG element
+const svgAnimation = document.querySelector('.svg-animation');
 
-	<div id="fh5co-skills" class="animate-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Skills</h2>
-				</div>
-			</div>
-			<div class="row row-pb-md">
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="95"><span><strong>Creativity</strong>95%</span></div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="93"><span><strong>Web Design</strong>93%</span></div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="90"><span><strong>UI Develop.</strong>90%</span></div>
-				</div>
+// Add an event listener to track the cursor movement
+document.addEventListener('mousemove', (event) => {
+    const x = event.clientX;
+    const y = event.clientY;
 
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="89"><span><strong>C Language</strong>85%</span></div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="85"><span><strong>Python</strong>85%</span></div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="90"><span><strong>App Develop.</strong>90%</span></div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="85"><span><strong>Prob.Solving</strong>85%</span></div>
-				</div>
-				<div class="col-md-3 col-sm-6 col-xs-12 text-center">
-					<div class="chart" data-percent="90"><span><strong>Java</strong>75%</span></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="progress-wrap">
-						<h3><span class="name-left">Creativity</span><span class="value-right">95%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-1 progress-bar-striped active" role="progressbar"
-						  aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
-						  </div>
-						</div>
-					</div>
-					<div class="progress-wrap">
-						<h3><span class="name-left">Web Design</span><span class="value-right">93%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-2 progress-bar-striped active" role="progressbar"
-						  aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
-						  </div>
-						</div>
-					</div>
-					<div class="progress-wrap">
-						<h3><span class="name-left">UI Development</span><span class="value-right">90%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-3 progress-bar-striped active" role="progressbar"
-						  aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-						  </div>
-						</div>
-					</div>
-					<div class="progress-wrap">
-						<h3><span class="name-left">C Language</span><span class="value-right">85%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-4 progress-bar-striped active" role="progressbar"
-						  aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%">
-						  </div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="progress-wrap">
-						<h3><span class="name-left">Python</span><span class="value-right">85%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-5 progress-bar-striped active" role="progressbar"
-						  aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%">
-						  </div>
-						</div>
-					</div>
-					<div class="progress-wrap">
-						<h3><span class="name-left">App Development</span><span class="value-right">90%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-striped active" role="progressbar"
-						  aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
-						  </div>
-						</div>
-					</div>
-					<div class="progress-wrap">
-						<h3><span class="name-left">Problem Solving</span><span class="value-right">85%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-1 progress-bar-striped active" role="progressbar"
-						  aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%">
-						  </div>
-						</div>
-					</div>
-					<div class="progress-wrap">
-						<h3><span class="name-left">Java</span><span class="value-right">75%</span></h3>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-3 progress-bar-striped active" role="progressbar"
-						  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    // Move the SVG element to the cursor position
+    svgAnimation.style.left = `${x}px`;
+    svgAnimation.style.top = `${y}px`;
+});
 
-	<div id="fh5co-work" class="fh5co-bg-dark">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Work</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="#" class="work" style="background-image: url(images/portfolio.png);">
-						<div class="desc">
-							<h3>Portfolio Website</h3>
-							<span>Website Design</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="https://riyanshportfolioproject.blogspot.com/2022/04/whiteboard-in-python.html" class="work" style="background-image: url(images/whiteboard.jpg);">
-						<div class="desc">
-							<h3>WhiteBoard</h3>
-							<span>Python</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="https://riyanshportfolioproject.blogspot.com/2022/04/encryption-decryption-and-hashing.html" class="work" style="background-image: url(images/encryp.jpg);">
-						<div class="desc">
-							<h3>Encryption Decryption and Hashing</h3>
-							<span>Application</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="#" class="work" style="background-image: url(images/.jpg);">
-						<div class="desc">
-							<h3>Project Name</h3>
-							<span>D</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="#" class="work" style="background-image: url(images/.jpg);">
-						<div class="desc">
-							<h3>Project Name</h3>
-							<span>W</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="#" class="work" style="background-image: url(images/.jpg);">
-						<div class="desc">
-							<h3>Project Name</h3>
-							<span>I</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="#" class="work" style="background-image: url(images/.jpg);">
-						<div class="desc">
-							<h3>Project Name</h3>
-							<span>B</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
-					<a href="#" class="work" style="background-image: url(images/.jpg);">
-						<div class="desc">
-							<h3>Project Name</h3>
-							<span>I</span>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+// Animate the SVG element on cursor hover
+svgAnimation.addEventListener('mouseenter', () => {
+    gsap.fromTo(svgAnimation, { scale: 1 }, { scale: 1.1, duration: 0.3, ease: 'power1.out' });
+});
 
-			
-	
-	<div id="fh5co-started" class="fh5co-bg-dark">
-		<div class="overlay">
-			
-		</div>
-		<div class="container">
-			<a href="mailto:riyujain68@gmail.com">
-			<div class="row animate-box" >
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Hire Me!</h2>
-					Contact Us
-					</div>
-			</div>
-			
-		</div>
-	</a>
-	</div>
-	
-	
-	
+svgAnimation.addEventListener('mouseleave', () => {
+    gsap.to(svgAnimation, { scale: 1, duration: 0.3, ease: 'power1.out' });
+});
 
-	 
-	<div id="map" class="fh5co-map"></div>
-	</div>
-	
-	
+  </script>
+  <script>
+    // Find the loader container
+const loaderContainer = document.querySelector('.loader-container');
 
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
-	</div>
-	
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Stellar Parallax -->
-	<script src="js/jquery.stellar.min.js"></script>
-	<!-- Easy PieChart -->
-	<script src="js/jquery.easypiechart.min.js"></script>
-	>	
-	
-	<!-- Main -->
-	<script src="js/main.js"></script>
+// Create the split loader with GSAP
+function createSplitLoader() {
+  const colors = ['#00ff26', '#ff0000', '#0000ff', '#ffff00', '#ff00ff'];
+  
+  for (let i = 0; i < 5; i++) {
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+    rect.setAttribute('x', i * 45);
+    rect.setAttribute('y', 0);
+    rect.setAttribute('width', 45);
+    rect.setAttribute('height', 300);
+    rect.setAttribute('fill', colors[i]);
+    loaderContainer.appendChild(rect);
+  }
+}
 
-	</body>
+// Call the createSplitLoader function
+createSplitLoader();
+
+  </script>
+
+</body>
 </html>
-
