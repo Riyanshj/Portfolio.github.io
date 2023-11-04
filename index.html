@@ -8,28 +8,26 @@
 </head>
 <body>
   <div class="column">
-    <div class="row">
+    <div class="row row1">
       <div class="project-name project-info"><h1>Music Website</h1></div>
       <div class="project-type project-info"><h2>2022 <br> Website</h2></div>
     </div>
-    <div class="row">
-      <div class="project-desc">
-        <p>In a nutshell, the 3D music website powered by state-of-the-art spline software offers an unprecedented music experience. It immerses users in a visually breathtaking and dynamic audio journey that transforms their favorite songs into three-dimensional soundscapes.</p>
-      </div>
+    <div class="row row2">
+    
+        <div class="project-desc">
+            <p class="description">In a nutshell, the 3D music website powered by state-of-the-art spline software offers an unprecedented music experience. It immerses users in a visually breathtaking and dynamic audio journey that transforms their favorite songs into three-dimensional soundscapes.</p>
+            <img class="image" src="project/1.png">
+
+        </div>
     </div>
-    <div class="row">
-      <div class="project-image">
-        <img class="image" src="project/1.png">
-      </div>
     </div>
-  </div>
 </body>
 <style>
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  background: #d6dbe1;
   height: 100vh;
   width: 100vw;
   
@@ -44,13 +42,14 @@ body {
 }
 
 .row {
-  border: 1px rgb(45, 45, 45) solid;
-  background-color: #3498db;
-  color: #ffffff;
+  border: 1px rgb(0, 0, 0) solid;
+  background: #d6dbe1;
+  color: #000000;
   padding: 20px;
   text-align: center;
   margin: 5px 0;
-  width: 20vw;
+  max-width: 45vw;
+  max-height: 80vw;
   height: 20vw;
   display: flex;
   flex-direction: column;
@@ -58,16 +57,18 @@ body {
   text-align: left;
 }
 
-.project-image {
-  height: 19vw;
-  width: 19vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+
+.row2{
+    width: 45vw;
+    display: flex;
+    flex-direction: row;
 }
 
 .project-desc{
-    font-size: 1.5vw;
+    font-size: 1.25vw;
+    display: flex;
+    flex-direction: row;
 }
 
 .project-name{
@@ -78,19 +79,66 @@ body {
     font-size: 1.25vw;
 }
 
+.description{
+    margin-right: 27.5px;
+}
+
 .image {
   height: auto;
   width: 100%;
+  height: 19vw;
+  width: 19vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px black solid;
+  
 }
+
+.row1{
+    width: 20vw;
+}
+
 
 @media (max-width: 767px) {
   .column {
     flex-direction: column;
+
   }
   .row{
     width: 75vw;
+    max-height: 80vw;
     height: 25vw;
+    margin: 0;
   }
+  .project-desc{
+    font-size: 2vw;
+    flex-direction: column;
+    height: auto;
+    display: flex;
+}
+
+.row2{
+    flex-direction: row;
+    height: auto;
+    display: flex;
+}
+
+.project-name{
+    font-size: 3vw;
+}
+
+.project-type{
+    font-size: 2vw;
+}
+.image{
+    width: 100%;
+    height:auto;
+}
+
+.description{
+    margin-right: 0;
+}
 }
 </style>
 </html>
