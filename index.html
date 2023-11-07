@@ -1,189 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        /* Style for the container of the columns */
+        .row {
+            display: flex; /* Use flexbox to create a row */
+            height: 75vh;
+            border: 2px black solid;
+            flex-direction: row;
+        }
 
-  <style>
-    .row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
+        /* Style for each column */
+        .column {
+            flex: 1; /* Make the columns share the available space equally */
+            padding: 10px; /* Add some padding for spacing */
+            display: flex; /* Use flexbox for the second column */
+            flex-direction: column; /* Stack the content vertically in the second column */
+        }
 
-    .column {
-      flex: 1;
-      padding: 10px;
-      border-top: 1px solid black;
-      height: 100%;
-    }
+        /* Style for the two main sub-columns within the second column */
+        .main-sub-column {
+            flex: 1; /* Make the main sub-columns share the available space equally */
+            display: flex; /* Use flexbox for the main sub-columns */
+        }
 
-    .column:nth-child(1) {
-      flex: 3; /* First column takes up twice as much space as the others */
-    }
+        /* Style for the four sub-columns within each main sub-column */
+        .sub-column {
+            flex: 1; /* Make the sub-columns share the available space equally */
+            border: 2px black solid;
+        }
 
-    .row .content {
-      display: none;
-      padding: 10px;
-      background-color: #f0f0f0;
-    }
-
-    .row:hover .title {
-      background-color: black;
-      color: white;
-      width: fit-content;
-      height: max-content;
-    }
-
-    .column:nth-child(2),
-    .column:nth-child(3) {
-      flex: 1;
-    }
-
-    .image {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 3;
-      width: 20vw;
-      height: auto;
-    }
-
-    .overlay {
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      z-index: 4;
-      position: absolute;
-      top: 0%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 3;
-      width: 20vw;
-      height: fit-content;
-      height: 20vw;
-      z-index: 4;
-    }
-
-    .text {
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .row:hover .image {
-      display: block; /* Show the image on row hover */
-    }
-    
-  </style>
+        /* Media query for mobile view (max-width: 768px) */
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column; /* Change the direction to make it a column for mobile view */
+            }
+            .column {
+                padding: 10px; /* Restore padding for the columns */
+                flex-direction: row; /* Change the direction for the columns to stack horizontally for mobile view */
+            }
+            .main-sub-column {
+                flex-direction: column; /* Change the direction for the main sub-columns to stack vertically for mobile view */
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="row" style="margin-top: 20vw;">
-    <div class="column"><div class="title">Column 1</div></div>
-    <div class="column">Column 2</div>
-    <div class="column">Column 3</div>
-    <img class="image" src="project/1.png" alt="Click me!" onclick="toggleOverlay1()">
-  </div>
-  <div class="row">
-    <div class="column"><div class="title">Column 1</div></div>
-    <div class="column">Column 2</div>
-    <div class="column">Column 3</div>
-    <img class="image" src="project/2.png" alt="Image" alt="Click me!" onclick="toggleOverlay2()">
-  </div>
-  <div class="row">
-    <div class="column"><div class="title">Column 1</div></div>
-    <div class="column">Column 2</div>
-    <div class="column">Column 3</div>
-    <img class="image" src="project/3.png" alt="Click me!" onclick="toggleOverlay3()" >
-  </div>
-  <div class="row">
-    <div class="column"><div class="title">Column 1</div></div>
-    <div class="column">Column 2</div>
-    <div class="column">Column 3</div>
-    <img class="image" src="project/4.png" alt="Click me!" onclick="toggleOverlay4()">
-  </div>
-  <div class="row" style="border-bottom: 1px black solid;">
-    <div class="column"><div class="title">Column 1</div></div>
-    <div class="column">Column 2</div>
-    <div class="column">Column 3</div>
-    <img class="image" src="project/5.png" alt="Click me!" onclick="toggleOverlay5()">
-  </div>
-  <style>
-    body {
-      cursor:none; /* Disable the default cursor */
-      
-    }
-
-    .custom-cursor {
-      cursor: none;
-      position: absolute;
-      min-width: 20px;
-      min-height: 20px;
-      max-width: 20vw;
-      max-height: 40vw;
-      height: fit-content;
-      width: fit-content;
-      color: white;
-      padding: 10px;
-      background-color: #333; /* Square color */
-      border-radius: 5px; /* Rounded corners */
-      pointer-events: none; /* Make it not interactable */
-      transform: translate(-50%, -50%); /* Center the cursor on the mouse pointer */
-      z-index: 4;
-      transition: width 0.2s ease-in-out;
-    }
-
-    .custom-cursor:hover {
-      width: 50px; /* Scale the cursor on hover */
-      transition: transform 0.2s ease-in-out;
-      transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1); /* Power4.inOut animation */
-    }
-  </style>
-
-  <div class="custom-cursor"></div>
-  <!-- Your webpage content goes here -->
-
-  <script>
-    const customCursor = document.querySelector(".custom-cursor");
-    const images = document.querySelectorAll(".image");
-
-    images.forEach((image) => {
-      image.addEventListener("mouseenter", () => {
-        customCursor.textContent = "CLICK TO VIEW"; // Set the text for the cursor
-        gsap.to(customCursor, { scale: 1, ease: "power2.inOut" }); // GSAP animation on hover
-      });
-
-      image.addEventListener("mouseleave", () => {
-        customCursor.textContent = ""; // Set the text for the cursor
-        gsap.to(customCursor, { scale: 1, ease: "power2.inOut" }); // GSAP animation on mouse leave
-      });
-    });
-
-    document.addEventListener("mousemove", (e) => {
-      customCursor.style.left = e.clientX + "px";
-      customCursor.style.top = e.clientY + "px";
-    });
-
-
- 
-  </script>
-    <script>
-      function toggleOverlay1() {
-        customCursor.textContent = "In a nutshell, the 3D music website powered by state-of-the-art spline software offers an unprecedented music experience. It immerses users in a visually breathtaking and dynamic audio journey that transforms their favorite songs into three-dimensional soundscapes"; // Set the text for the cursor
-      }
-      function toggleOverlay2() {
-        customCursor.textContent = "The SocialSphere UI Project is a user interface design initiative aimed at enhancing user engagement on a social media platform. This project achieves its goal by employing a sleek and intuitive design approach"; 
-      }
-      function toggleOverlay3() {
-        customCursor.textContent = "The Stack Game is an engaging web-based challenge that promises an exciting experience requiring impeccable timing and precision skills. In this game, your objective is to stack blocks as high as possible without letting them topple over. The game boasts a minimalist design created using HTML and CSS, ensuring that the gameplay is simple yet highly engaging."; 
-      }
-      function toggleOverlay4() {
-        customCursor.textContent = "In this project, I undertook the task of reimagining the user interface of Netflix, a popular streaming platform. The goal was to create a more stylish and user-friendly design that seamlessly integrated content discovery and provided an enhanced overall user experience."; 
-      }
-      function toggleOverlay5() {
-        customCursor.textContent = "PaySwift is a cutting-edge payment app that redefines the way you manage your financial transactions. Our user interface (UI) is designed to provide an intuitive and secure payment experience, making it easier than ever to send and receive money, pay bills, and track your finances."; 
-      }
-    </script>
+    <div class="row">
+        <div class="column">
+            <!-- Content for the first column goes here -->
+            <p>Column 1</p>
+        </div>
+        <div class="column column1">
+            <!-- Content for the second column goes here -->
+            <div class="main-sub-column main-sub-column1">
+                <div class="sub-column">Sub-Column 1</div>
+                <div class="sub-column">Sub-Column 2</div>
+            </div>
+            <div class="main-sub-column main-sub-column2">
+                <div class="sub-column">Sub-Column 3</div>
+                <div class="sub-column">Sub-Column 4</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
